@@ -141,23 +141,24 @@
                                             <div class="collapsible-body">
                                                 <ul>
 
-                                                        {% comment %}
+
                                                         <li class="">
                                                         <a href="{% url 'crm:newvigr' %}">
                                                             --- Циан вторичка</a>
                                                         <a href="{% url 'crm:newNovvigr' %}">
-                                                            --- Циан новостройка</a>{% endcomment %}
+                                                            --- Циан новостройка</a>#{% endcomment %}
                                                         {% comment %}
                                                         <a class="nav-header">Только реальные обьекты в:</a>
                                                         {% endcomment %}
                                                         <li><a href="{% url 'crm:new_flat' %}">
                                                             --- ЦРМ (DomClik)
                                                         </a></li>
+                                                    {% comment %}
                                                         <li><a href="{% url 'crm:flat_apparts_postForm' %}">
                                                             --- Апартаменты
                                                         </a>
-
                                                     </li>
+                                                    {% endcomment %}
 
                                                 </ul>
                                             </li>
@@ -173,7 +174,7 @@
                                                         <li class="">
                                                             <a href="{% url 'crm:new_dom_post' %}">
                                                                 --- ЦРМ</a>
-                                                            {% comment %}
+                                                            #{% comment %}
                                                             <a href="#">
                                                                 --- ЦИАН (В разработке)</a>{% endcomment %}
                                                         </li>
@@ -223,9 +224,9 @@
                                                     {% comment %}
                                                     <a href="{% url 'crm:all_vs_pub' %}">
                                                         <i class="material-icons">V+</i>в Вестум</a>
+                                                    {% endcomment %}
                                                     <a href="{% url 'crm:cianindex' %}">
                                                         <i class="material-icons">camera</i>в ЦИАН</a>
-                                                    {% endcomment %}
                                                 </li>
 
                                             </ul>
@@ -273,9 +274,9 @@
                                                                 <i class="material-icons">business</i>Квартиры на сайте</a>
                                                             <a href="{% url 'crm:seo_flat_unpub'%}">
                                                                 <i class="material-icons">business</i>Квартиры не на сайте</a>
+                                                            {% comment %}
                                                             <a href="{% url 'crm:dm_index'%}">
-                                                                <i class="material-icons">business</i>Текст для Домклик</a>
-
+                                                                <i class="material-icons">business</i>Текст для Домклик</a>{% endcomment %}
                                                         </li>
 
                                                     </ul>
@@ -297,7 +298,7 @@
                                                                 <a href="{% url 'crm:NewZayavNov' %}">Внести новостройку</a>
                                                                 <a href="{% url 'crm:NewZayavLich' %}">Заявка на риелтора</a>
                                                             {% endif %}
-                                                            <a href="{% url 'crm:indexZayavka' %}">Выбрать клиента</a>
+                                                           {% comment %} <a href="{% url 'crm:indexZayavka' %}">Выбрать клиента</a>{% endcomment %}
                                                         </li>
 
                                                     </ul>
