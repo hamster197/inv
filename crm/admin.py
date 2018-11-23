@@ -93,7 +93,7 @@ admin.site.register(cachestvoDomCl, cashDomClickFields)
 #admin.site.register(domclickText, textFields)
 admin.site.register(TmpCianCount, CianFields)
 admin.site.register(zvonok,ZvonokFields)
-admin.site.register( vestum_poryadok_feed,VestimPorydok)
+#admin.site.register( vestum_poryadok_feed,VestimPorydok)
 
 class UserInline(admin.StackedInline):
     model = UserProfile1
