@@ -151,7 +151,7 @@
                                                         <a class="nav-header">Только реальные обьекты в:</a>
                                                         {% endcomment %}
                                                         <li><a href="{% url 'crm:new_flat' %}">
-                                                            --- ЦРМ (DomClik)
+                                                            --- ЦРМ
                                                         </a></li>
                                                     {% comment %}
                                                         <li><a href="{% url 'crm:flat_apparts_postForm' %}">
@@ -174,7 +174,7 @@
                                                         <li class="">
                                                             <a href="{% url 'crm:new_dom_post' %}">
                                                                 --- ЦРМ</a>
-                                                            #{% comment %}
+                                                            {% comment %}
                                                             <a href="#">
                                                                 --- ЦИАН (В разработке)</a>{% endcomment %}
                                                         </li>
@@ -244,8 +244,10 @@
                                                     <li class="">
                                                         <a href="{%  url 'crm:my_flatpub' %}">
                                                             <i class="material-icons">business</i>Квартиры</a>
+                                                        {% comment%}
                                                         <a href="{%  url 'crm:excl_flatpub' %}">
                                                             <i class="material-icons">developer_mode</i>Квартиры(Эксклюзив)</a>
+                                                        {% endcomment %}
                                                         <a href="{%  url 'crm:pub_dom_view' %}">
                                                             <i class="material-icons">account_balance</i>Дома</a>
                                                         <a href="{%  url 'crm:pub_uc_index' %}">
@@ -256,11 +258,12 @@
                                             </li>
 
                                         </ul>
+                                    {% comment %}
                                     <li >
                                         <a class="collapsible-header" href="{% url 'zvn:index'%}">
                                             <i class="material-icons">phone_in_talk</i>Ежедневник</a>
                                     </li>
-
+                                    {% endcomment %}
                                     {% if request.user.groups.get.name == 'seo' or request.user.groups.get.name == 'Администрация' %}
                                         <ul class="collapsible collapsible-accordion">
                                             <li>
