@@ -29,7 +29,7 @@ class flatform(forms.ModelForm):
         model=flat_obj
         fields=('client_name','client_tel','adress','raion','dom_numb','kvart_numb','etap_sdachi','status_gilya','klass_gilya',
                 'remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','cena_sobstv','cena_agenstv',
-                'security','rubbish_chute','lift','balcony', 'prim','domclick_pub')
+                'security','rubbish_chute','lift','balcony', 'prim',)
         #fields=('client_name','client_tel','status_obj','adress','raion','etap_sdachi','status_gilya','klass_gilya','remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','kadastr','cena_sobstv','cena_agenstv','prim')
     def clean(self):
         cleaned_data = super(flatform, self).clean()
@@ -48,9 +48,9 @@ class flatform(forms.ModelForm):
 class flatform_appart(forms.ModelForm):
     class Meta:
         model=flat_obj
-        fields=('exclusiv','client_name','client_tel','adress','raion','dom_numb','kvart_numb','etap_sdachi','klass_gilya',
+        fields=('client_name','client_tel','adress','raion','dom_numb','kvart_numb','etap_sdachi','klass_gilya',
                 'remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','cena_sobstv','cena_agenstv',
-                'security','rubbish_chute','lift','balcony', 'prim','domclick_pub')
+                'security','rubbish_chute','lift','balcony', 'prim',)
         #fields=('client_name','client_tel','status_obj','adress','raion','etap_sdachi','status_gilya','klass_gilya','remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','kadastr','cena_sobstv','cena_agenstv','prim')
     def clean(self):
         cleaned_data = super(flatform_appart, self).clean()
@@ -88,10 +88,10 @@ class kadastr_form(forms.ModelForm):
 class yandex_flatform(forms.ModelForm):
     class Meta:
         model=flat_obj#'kredit',
-        fields=('exclusiv','client_name','client_tel','adress','dom_numb','kvart_numb','raion',
+        fields=('client_name','client_tel','adress','dom_numb','kvart_numb','raion',
                 'etap_sdachi','status_gilya','klass_gilya','remont','gaz','komnat','ploshad','etag',
                 'etagnost','vid_is_okon','san_usel','parking','cena_sobstv','cena_agenstv','prim',
-                'security','rubbish_chute','lift','balcony','domclick_pub')
+                'security','rubbish_chute','lift','balcony',)
         #fields=('client_name','client_tel','domclick','status_obj','adress','raion','etap_sdachi','status_gilya','klass_gilya','remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','kadastr','cena_sobstv','cena_agenstv','prim')
     def clean(self):
         cleaned_data = super(yandex_flatform, self).clean()
@@ -117,7 +117,7 @@ class flateditform(forms.ModelForm):
         model=flat_obj#'kredit',
         fields=('adress','dom_numb','kvart_numb','etap_sdachi','status_gilya','klass_gilya','remont',
                 'komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking',
-                'cena_sobstv','cena_agenstv','prim','security','rubbish_chute','lift','balcony','domclick_pub')
+                'cena_sobstv','cena_agenstv','prim','security','rubbish_chute','lift','balcony',)
     def clean(self):
         cleaned_data = super(flateditform, self).clean()
         if str(cleaned_data['etag']) == '0' or str(cleaned_data['etagnost']) == '0':
@@ -150,7 +150,7 @@ class yandex_flateditform(forms.ModelForm):
         fields=('adress','dom_numb','domclick','adress','dom_numb','kvart_numb','kvart_numb',
                 'etap_sdachi','status_gilya','klass_gilya','remont','gaz','komnat','ploshad','etag',
                 'etagnost','vid_is_okon','san_usel','parking','cena_sobstv','cena_agenstv','prim',
-                'security','rubbish_chute','lift','balcony','domclick_pub')
+                'security','rubbish_chute','lift','balcony',)
     def clean(self):
         cleaned_data = super(yandex_flateditform, self).clean()
         if str(cleaned_data['etag']) == '0' or str(cleaned_data['etagnost']) == '0':
