@@ -4516,14 +4516,13 @@ def kach_otch_view(request):
     n1='Качество'
     n2='Обьявлений'
     n3 = zayavka.objects.filter(status='Свободен').count()
-    #"""""
     for i in flat_obj.objects.all():
 
         if i.kvart_numb:
             i.kv_err='False'
         else:
             i.kv_err = 'True'
-        if i.dom_numb or i.kadastr:
+        if i.dom_numb:# or i.kadastr:
             i.dom_err='False'
         else:
             i.dom_err='True'
