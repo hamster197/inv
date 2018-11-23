@@ -27,8 +27,8 @@ class newsform(forms.ModelForm):
 class flatform(forms.ModelForm):
     class Meta:
         model=flat_obj
-        fields=('exclusiv','client_name','client_tel','adress','raion','dom_numb','kvart_numb','kvart_numb','etap_sdachi','status_gilya','klass_gilya',
-                'remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','kadastr','cena_sobstv','cena_agenstv',
+        fields=('client_name','client_tel','adress','raion','dom_numb','kvart_numb','etap_sdachi','status_gilya','klass_gilya',
+                'remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','cena_sobstv','cena_agenstv',
                 'security','rubbish_chute','lift','balcony', 'prim','domclick_pub')
         #fields=('client_name','client_tel','status_obj','adress','raion','etap_sdachi','status_gilya','klass_gilya','remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','kadastr','cena_sobstv','cena_agenstv','prim')
     def clean(self):
@@ -37,8 +37,8 @@ class flatform(forms.ModelForm):
                 raise ValidationError('Этаж или Этажность равны 0!' , code='invalid')
         if int(cleaned_data['etag'])>int(cleaned_data['etagnost']):
                 raise ValidationError('Этаж больше этажности' , code='invalid')
-        if str(cleaned_data['kvart_numb'])=='' and str(cleaned_data['kadastr'])=='':
-                raise ValidationError('введите №кв или кадастр' , code='invalid')
+        if str(cleaned_data['kvart_numb'])=='':
+                raise ValidationError('введите №кв' , code='invalid')
         if len(str(cleaned_data['prim'])) < 300:
                 raise ValidationError('меньше 300 символов в описании' , code='invalid')
         if  str(cleaned_data['raion'])=='Выбор района':
@@ -48,8 +48,8 @@ class flatform(forms.ModelForm):
 class flatform_appart(forms.ModelForm):
     class Meta:
         model=flat_obj
-        fields=('exclusiv','client_name','client_tel','adress','raion','dom_numb','kvart_numb','kvart_numb','etap_sdachi','klass_gilya',
-                'remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','kadastr','cena_sobstv','cena_agenstv',
+        fields=('exclusiv','client_name','client_tel','adress','raion','dom_numb','kvart_numb','etap_sdachi','klass_gilya',
+                'remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','cena_sobstv','cena_agenstv',
                 'security','rubbish_chute','lift','balcony', 'prim','domclick_pub')
         #fields=('client_name','client_tel','status_obj','adress','raion','etap_sdachi','status_gilya','klass_gilya','remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','kadastr','cena_sobstv','cena_agenstv','prim')
     def clean(self):
@@ -58,8 +58,8 @@ class flatform_appart(forms.ModelForm):
                 raise ValidationError('Этаж или Этажность равны 0!' , code='invalid')
         if int(cleaned_data['etag'])>int(cleaned_data['etagnost']):
                 raise ValidationError('Этаж больше этажности' , code='invalid')
-        if str(cleaned_data['kvart_numb'])=='' and str(cleaned_data['kadastr'])=='':
-                raise ValidationError('введите №кв или кадастр' , code='invalid')
+        if str(cleaned_data['kvart_numb'])=='' :
+                raise ValidationError('введите №кв' , code='invalid')
         if len(str(cleaned_data['prim'])) < 300:
                 raise ValidationError('меньше 300 символов в описании' , code='invalid')
         if  str(cleaned_data['raion'])=='Выбор района':
@@ -90,7 +90,7 @@ class yandex_flatform(forms.ModelForm):
         model=flat_obj#'kredit',
         fields=('exclusiv','client_name','client_tel','adress','dom_numb','kvart_numb','raion',
                 'etap_sdachi','status_gilya','klass_gilya','remont','gaz','komnat','ploshad','etag',
-                'etagnost','vid_is_okon','san_usel','parking','kadastr','cena_sobstv','cena_agenstv','prim',
+                'etagnost','vid_is_okon','san_usel','parking','cena_sobstv','cena_agenstv','prim',
                 'security','rubbish_chute','lift','balcony','domclick_pub')
         #fields=('client_name','client_tel','domclick','status_obj','adress','raion','etap_sdachi','status_gilya','klass_gilya','remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','kadastr','cena_sobstv','cena_agenstv','prim')
     def clean(self):
@@ -99,8 +99,8 @@ class yandex_flatform(forms.ModelForm):
                 raise ValidationError('Этаж или Этажность равны 0!' , code='invalid')
         if int(cleaned_data['etag'])>int(cleaned_data['etagnost']):
                 raise ValidationError('Этаж больше этажности' , code='invalid')
-        if str(cleaned_data['kvart_numb']) == '' and str(cleaned_data['kadastr']) == '':
-                raise ValidationError('введите №кв или кадастр' , code='invalid')
+        if str(cleaned_data['kvart_numb']) == '' :
+                raise ValidationError('введите №кв' , code='invalid')
         if len(str(cleaned_data['prim'])) == 0:
                 raise ValidationError('Введите текст описания' , code='invalid')
         if len(str(cleaned_data['prim'])) < 300:
@@ -116,7 +116,7 @@ class flateditform(forms.ModelForm):
     class Meta:
         model=flat_obj#'kredit',
         fields=('adress','dom_numb','kvart_numb','etap_sdachi','status_gilya','klass_gilya','remont',
-                'komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','kadastr',
+                'komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking',
                 'cena_sobstv','cena_agenstv','prim','security','rubbish_chute','lift','balcony','domclick_pub')
     def clean(self):
         cleaned_data = super(flateditform, self).clean()
@@ -124,8 +124,8 @@ class flateditform(forms.ModelForm):
                 raise ValidationError('Этаж или Этажность равны 0!' , code='invalid')
         if int(cleaned_data['etag'])>int(cleaned_data['etagnost']):
                 raise ValidationError('Этаж больше этажности' , code='invalid')
-        if str(cleaned_data['kvart_numb']) == '' and str(cleaned_data['kadastr']) == '':
-                raise ValidationError('введите №кв или кадастр' , code='invalid')
+        if str(cleaned_data['kvart_numb']) == '' :
+                raise ValidationError('введите №кв' , code='invalid')
         if len(str(cleaned_data['prim'])) == 0:
                 raise ValidationError('Введите текст описания' , code='invalid')
         if len(str(cleaned_data['prim'])) < 300:
@@ -149,7 +149,7 @@ class yandex_flateditform(forms.ModelForm):
         model=flat_obj#'kredit',
         fields=('adress','dom_numb','domclick','adress','dom_numb','kvart_numb','kvart_numb',
                 'etap_sdachi','status_gilya','klass_gilya','remont','gaz','komnat','ploshad','etag',
-                'etagnost','vid_is_okon','san_usel','parking','kadastr','cena_sobstv','cena_agenstv','prim',
+                'etagnost','vid_is_okon','san_usel','parking','cena_sobstv','cena_agenstv','prim',
                 'security','rubbish_chute','lift','balcony','domclick_pub')
     def clean(self):
         cleaned_data = super(yandex_flateditform, self).clean()
@@ -157,8 +157,8 @@ class yandex_flateditform(forms.ModelForm):
                 raise ValidationError('Этаж или Этажность равны 0!' , code='invalid')
         if int(cleaned_data['etag'])>int(cleaned_data['etagnost']):
                 raise ValidationError('Этаж больше этажности' , code='invalid')
-        if str(cleaned_data['kvart_numb']) == '' and str(cleaned_data['kadastr']) == '':
-                raise ValidationError('введите №кв или кадастр' , code='invalid')
+        if str(cleaned_data['kvart_numb']) == '' :
+                raise ValidationError('введите №кв' , code='invalid')
         if len(str(cleaned_data['prim'])) < 300:
                 raise ValidationError('меньше 300 символов в описании' , code='invalid')
         if str(cleaned_data['dom_numb']) == '':
