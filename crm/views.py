@@ -897,8 +897,8 @@ def domclickfeedview(request):
     # end of ручной ввод текста сео
     # auto ввод текста сео
     date1 = timezone.now().day
-    dm = get_object_or_404(domclickText, day = int(date1))
-    #dm = ''
+    #dm = get_object_or_404(domclickText, day = int(date1))
+    dm = ''
     # end of autoручной ввод текста сео
     return render(request,'any/ndomclick.html',{'tppost': post, 'tpgal':gal, 'tdate':date, 'tcount':count, 'tdom':doma, 'tdm':dm }, content_type="text/xml")
 
@@ -921,7 +921,8 @@ def vestumfeedview(request):
     # end of ручной ввод текста сео
     # auto ввод текста сео
     date1 = timezone.now().day
-    dm = get_object_or_404(domclickText, day = int(date1))
+    #dm = get_object_or_404(domclickText, day = int(date1))
+    dm = ''
     # end of autoручной ввод текста сео
     return render(request,'any/vestum.html',{'tppost': post, 'tpgal':gal, 'tdate':date, 'tcount':count,'tdom':doma , 'tdm':dm }, content_type="text/xml")#'tp':porydok
     #return render(request,'any/vestum.html',{'tppost': post, 'tpgal':gal, 'tdate':date, 'tcount':count, 'tdm':dm }, content_type="text/xml")
@@ -965,8 +966,8 @@ def YandexFeedview(request):
     # end of ручной ввод текста сео
     # auto ввод текста сео
     date1 = timezone.now().day
-    dm = get_object_or_404(domclickText, day = int(date1))
-    #dm = '21312321'
+    #dm = get_object_or_404(domclickText, day = int(date1))
+    dm = ''
     # end of autoручной ввод текста сео
     return render(request,'any/YandexFeed.html',{'tppost': post, 'tpgal':gal, 'tdate':date,
                                                  'tdom':doma, 'tdm':dm, 'tuchastoc':uchastoc }, content_type="text/xml")
@@ -984,8 +985,8 @@ def MailRuFeedview(request):
     # end of ручной ввод текста сео
     # auto ввод текста сео
     date1 = timezone.now().day
-    dm = get_object_or_404(domclickText, day = int(date1))
-    #dm = '21312321'
+    #dm = get_object_or_404(domclickText, day = int(date1))
+    dm = ''
     # end of autoручной ввод текста сео
     return render(request,'any/MailFeed.html',{'tppost': post, 'tpgal':gal, 'tdate':date, 'tdom':doma, 'tdm':dm }, content_type="text/xml")
 
@@ -1002,8 +1003,8 @@ def GRFeedview(request):
     # end of ручной ввод текста сео
     # auto ввод текста сео
     date1 = timezone.now().day
-    dm = get_object_or_404(domclickText, day = int(date1))
-    #dm = '21312321'
+    #dm = get_object_or_404(domclickText, day = int(date1))
+    dm = ''
     # end of autoручной ввод текста сео
     return render(request,'any/GRFeed.html',{'tppost': post, 'tpgal':gal, 'tdate':date, 'tdom':doma, 'tdm':dm }, content_type="text/xml")
 

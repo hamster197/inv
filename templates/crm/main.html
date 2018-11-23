@@ -119,9 +119,11 @@
                         <a href="#">
                             <span class="white-text email">
                                 {% if user.is_authenticated %}{{ user.first_name }}
+                                    {% comment %}
                                     (Vestum:
                                     {{ tvestum_count }}
                                     )
+                                    {% endcomment %}
                                 {% endif %}</span></a>
                     </div>
                 </li>
@@ -223,8 +225,7 @@
                                                         <i class="material-icons">apps</i>Участки</a>
                                                     {% comment %}
                                                     <a href="{% url 'crm:all_vs_pub' %}">
-                                                        <i class="material-icons">V+</i>в Вестум</a>
-                                                    {% endcomment %}
+                                                        <i class="material-icons">V+</i>в Вестум</a>{% endcomment %}
                                                     <a href="{% url 'crm:cianindex' %}">
                                                         <i class="material-icons">camera</i>в ЦИАН</a>
                                                 </li>
@@ -244,10 +245,10 @@
                                                     <li class="">
                                                         <a href="{%  url 'crm:my_flatpub' %}">
                                                             <i class="material-icons">business</i>Квартиры</a>
-                                                        {% comment%}
+                                                        {% comment %}
                                                         <a href="{%  url 'crm:excl_flatpub' %}">
                                                             <i class="material-icons">developer_mode</i>Квартиры(Эксклюзив)</a>
-                                                        {% endcomment %}
+                                                         {% endcomment %}
                                                         <a href="{%  url 'crm:pub_dom_view' %}">
                                                             <i class="material-icons">account_balance</i>Дома</a>
                                                         <a href="{%  url 'crm:pub_uc_index' %}">
@@ -264,6 +265,7 @@
                                             <i class="material-icons">phone_in_talk</i>Ежедневник</a>
                                     </li>
                                     {% endcomment %}
+
                                     {% if request.user.groups.get.name == 'seo' or request.user.groups.get.name == 'Администрация' %}
                                         <ul class="collapsible collapsible-accordion">
                                             <li>
@@ -279,7 +281,8 @@
                                                                 <i class="material-icons">business</i>Квартиры не на сайте</a>
                                                             {% comment %}
                                                             <a href="{% url 'crm:dm_index'%}">
-                                                                <i class="material-icons">business</i>Текст для Домклик</a>{% endcomment %}
+                                                                <i class="material-icons">business</i>Текст для Домклик</a>
+                                                            {% endcomment %}
                                                         </li>
 
                                                     </ul>
@@ -301,7 +304,9 @@
                                                                 <a href="{% url 'crm:NewZayavNov' %}">Внести новостройку</a>
                                                                 <a href="{% url 'crm:NewZayavLich' %}">Заявка на риелтора</a>
                                                             {% endif %}
-                                                           {% comment %} <a href="{% url 'crm:indexZayavka' %}">Выбрать клиента</a>{% endcomment %}
+                                                        {% comment %}
+                                                            <a href="{% url 'crm:indexZayavka' %}">Выбрать клиента</a>
+                                                         {% endcomment %}
                                                         </li>
 
                                                     </ul>
