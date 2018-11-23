@@ -15,12 +15,12 @@
               <th>Район</th>
               <th>Улица</th>
               <th></th>
-              {% ifequal request.user.userprofile1.ya "Да" %}<th>Статус</th>{% endifequal%}
+              {% comment %}{% ifequal request.user.userprofile1.ya "Да" %}<th>Статус</th>{% endifequal%} {% endcomment %}
           </tr>
         </thead>
 {% if tpflatlist %}
 {% load el_pagination_tags %}
-{% paginate tpflatlist %}
+{% lazy_paginate  tpflatlist %}
     {% for flatlist in tpflatlist %}
         <tbody>
           <tr>
@@ -33,7 +33,7 @@
             <td> {{ flatlist.cena_agenstv }} </td>
             <td> {{ flatlist.raion }}</td>
           <td>{{ flatlist.adress }}</td>
-
+        {% comment %}
           <td>
 
            {%  ifequal request.user flatlist.author %}
@@ -45,7 +45,7 @@
           </td>
           <td>
              {% ifequal request.user flatlist.author%}
-                {% comment %} {% if flatlist.vestum_pub == 'Да' %}<i class="material-icons" >V+</i>{% endif %}{% endcomment %}
+                {% comment %} {% if flatlist.vestum_pub == 'Да' %}<i class="material-icons" >V+</i>{% endif %}
                  {% if flatlist.kadastr != '' %}<i class="material-icons" >K+</i>{% endif %}
                  {% if flatlist.domclick_pub == 'Да' and flatlist.kadastr != '' %}<i class="material-icons" >Дм+</i>{% endif %}
              {% endifequal %}
@@ -55,7 +55,7 @@
           {% ifequal request.user flatlist.author%}
             <td> {{ flatlist.building_name }}</td>
           {% endifequal %}
-        {% endifequal%}
+        {% endifequal%}{% endcomment %}
             <td><a href="{% url 'crm:flat_detail' idd=flatlist.pk %}"><button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Подробнее</button></a></td>
 
           </tr>
@@ -65,8 +65,14 @@
 
     {% endfor %}
      </table>
-    {% show_pages %}
-    {% get_pages %}
+{% get_pages %}
+    <ul class="pagination">
+        {% for page in pages %}
+            <li>
+                <a href="{{ page.path }}" rel="page" class="endless_page_link">{{ page.number }}</a>
+            </li>
+        {% endfor %}
+   </ul>
 
 {% else %}
   </tbody></br></br></br>

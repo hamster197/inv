@@ -492,7 +492,7 @@ class adm_form(forms.Form):
     )
 
 class vestum_count_form(forms.Form):
-    vs_count = forms.IntegerField(label='Балы для всех в Вестуме:')
+    vs_count = forms.IntegerField(label='Балы для всех в Avito:')
 
 
 class vestum_poryadok_form(forms.ModelForm):
