@@ -2686,9 +2686,9 @@ def stat_count_crm_obj(request):
     for i in user:
         if i.is_active:
             date = datetime.now() - timedelta(days=10)
-            #cian_count = feed.objects.filter(author_id=i.id, pub='Да', date_sozd__gte=date).order_by('-date_sozd').count()
-            cian_count = flat_obj.objects.filter(author_id=i.id, status_gilya='Нежилое помещение', date_sozd__gte=d11, date_sozd__lt=d1 ).order_by(
-                '-date_sozd').count()
+            cian_count = feed.objects.filter(author_id=i.id, pub='Да', date_sozd__gte=date).order_by('-date_sozd').count()
+            #cian_count = flat_obj.objects.filter(author_id=i.id, status_gilya='Нежилое помещение', date_sozd__gte=d11, date_sozd__lt=d1 ).order_by(
+            #    '-date_sozd').count()
             countss =flat_obj.objects.filter(author_id=i.id).count()
             countss_kadastr = flat_obj.objects.filter(author_id=i.id).exclude(kadastr='').count()
             countss_w = flat_obj.objects.filter(author_id=i.id, date_sozd__gte=d11).count()
@@ -2715,7 +2715,10 @@ def stat_count_crm_obj(request):
     AdlOtdel_cn = str(AdlOtdel_cn1.get('crm_calc__sum'))
 
     vestum = flat_obj.objects.filter(status_gilya='Нежилое помещение').exclude(kadastr='').count()
-    egr = flat_obj.objects.all().exclude(kadastr='').count()
+    cian_count_all = feed.objects.filter( pub='Да', date_sozd__gte=date).order_by('-date_sozd').count()
+
+    #egr = flat_obj.objects.all().exclude(kadastr='').count()
+    egr = flat_obj.objects.all().count()
     all1 = stat_obj_crm.objects.all().aggregate(Sum('crm_calc'))
     all = str(all1.get('crm_calc__sum'))
     return render(request,'crm/stat/crm_obj_index.html',
@@ -2723,7 +2726,7 @@ def stat_count_crm_obj(request):
                    'tOtd1_cn':otdel1_cn,'tOtd2_cn':otdel2_cn,'tOtd3_cn':otdel3_cn,
                    'tAdlOtdel':AdlOtdel,
                    'tOtd4_cn': otdel4_cn, 'tOtdAdl_cn': AdlOtdel_cn,'tall':all,
-                     't_my_ya_obj': my_ya_obj,'tNach_otd':nach_otd, 'tegr':egr,'tvs':vestum,
+                     't_my_ya_obj': my_ya_obj,'tNach_otd':nach_otd, 'tegr':egr,'tvs':cian_count_all,#vestum,
                      'tn1': n1, 'tn2': n2, 'tn3': n3, 'td1':d1, 'td11':d11,'tcrm_obj_week_count':crm_obj_week_count,
                      })
 
@@ -2752,9 +2755,9 @@ def stat_count_crm_obj_past(request):
     for i in user:
         if i.is_active:
             date = datetime.now() - timedelta(days=10)
-            #cian_count = feed.objects.filter(author_id=i.id, pub='Да', date_sozd__gte=date).order_by('-date_sozd').count()
-            cian_count = flat_obj.objects.filter(author_id=i.id, status_gilya='Нежилое помещение', date_sozd__gte=d11, date_sozd__lt=d1 ).order_by(
-                '-date_sozd').count()
+            cian_count = feed.objects.filter(author_id=i.id, pub='Да', date_sozd__gte=date).order_by('-date_sozd').count()
+            #cian_count = flat_obj.objects.filter(author_id=i.id, status_gilya='Нежилое помещение', date_sozd__gte=d11, date_sozd__lt=d1 ).order_by(
+            #    '-date_sozd').count()
             countss =flat_obj.objects.filter(author_id=i.id).count()
             countss_kadastr = flat_obj.objects.filter(author_id=i.id).exclude(kadastr='').count()
             countss_w = flat_obj.objects.filter(author_id=i.id, date_sozd__gte=d11, date_sozd__lt=d1).count()
@@ -2782,7 +2785,10 @@ def stat_count_crm_obj_past(request):
     AdlOtdel_cn = str(AdlOtdel_cn1.get('crm_calc__sum'))
 
     vestum = flat_obj.objects.filter(vestum_pub='Да').count()
-    egr = flat_obj.objects.all().exclude(kadastr='').count()
+    cian_count_all = feed.objects.filter(pub='Да', date_sozd__gte=date).order_by('-date_sozd').count()
+
+    #egr = flat_obj.objects.all().exclude(kadastr='').count()
+    egr = flat_obj.objects.all().count()
     all1 = stat_obj_crm.objects.all().aggregate(Sum('crm_calc'))
     all = str(all1.get('crm_calc__sum'))
     return render(request,'crm/stat/crm_obj_index.html',
@@ -2790,7 +2796,7 @@ def stat_count_crm_obj_past(request):
                    'tOtd1_cn':otdel1_cn,'tOtd2_cn':otdel2_cn,'tOtd3_cn':otdel3_cn,
                    'tAdlOtdel':AdlOtdel,
                    'tOtd4_cn': otdel4_cn, 'tOtdAdl_cn': AdlOtdel_cn,'tall':all,
-                     't_my_ya_obj': my_ya_obj,'tNach_otd':nach_otd, 'tegr':egr,'tvs':vestum,
+                     't_my_ya_obj': my_ya_obj,'tNach_otd':nach_otd, 'tegr':egr,'tvs':cian_count_all,#vestum,
                      'tn1': n1, 'tn2': n2, 'tn3': n3, 'td1':d1, 'td11':d11,'tcrm_obj_week_count':crm_obj_week_count,
                      })
 
