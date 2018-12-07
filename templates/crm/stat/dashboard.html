@@ -2,60 +2,16 @@
 
 {% block content %}
 {% if request.user.groups.all.0.name == 'Администрация' %}
-<script>
-##########################################################################
- ### Yandex
-##########################################################################
-</script>
-    <div class="row">
-      <div class="col s4">
-            <div class="row">
-    <div class="col s12">
-      <div class="card  ">
-        <div class="card-content ">
-          <span class="card-title">Яндекс</span>
-            <script src="https://www.google.com/jsapi"></script>
-  <script>
-   google.load("visualization", "1", {packages:["corechart"]});
-   google.setOnLoadCallback(drawChart);
-   function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-     ['Даты', ''],
-     ['{{ y|safe }}', {{ tc|safe }}],
-     ['{{ y2|safe }}', {{ tc2|safe }}],
-     ['{{ y3|safe }}', {{ tc3|safe }}],
-     ['{{ y4|safe }}', {{ tc4|safe }}],
-    ]);
-    var options = {
-     title: 'Посещения за сегодня: {{ tc|safe }}' ,
-     hAxis: {title: 'Даты'},
-     vAxis: {title: 'посетителей'}
-    };
-    var chart = new google.visualization.ColumnChart(document.getElementById('oil'));
-    chart.draw(data, options);
-   }
-  </script>
-<script>
 
-</script>
-  <div id="oil" style="width: 100%; height: 200px;"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-      </div>
-<script>
-##########################################################################
-### CRM
-##########################################################################
-</script>
-      <div class="col s4">
-            <div class="row">
-    <div class="col s12 ">
-      <div class="card ">
-        <div class="card-content">
-          <span class="card-title">Однокомнатные: {{ tOneCrs }} руб.</span>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<div class="row">
+                    <!-- column -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Однокомнатные: {{ tOneCrs }} руб.</h4>
+                                <div>
+                                    <div id="donutchart"></div>
+									    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
@@ -74,33 +30,65 @@
         var options = {
           title: 'Двухкомнатные: {{ tTwoCrs }} руб. Трехкомнатные {{ tTreCrs }} руб.',
           pieHole: 0.14,
+		  fontName: 'Open Sans',
+		  colors: ['#5ac146', '#2961ff', '#40c4ff', '#ff821c', '#7460ee', '#f62d51'],
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
         chart.draw(data, options);
       }
     </script>
-  </head>
-  <body>
-    <div id="donutchart" style="width: 100%; height: 200px;"></div>
-  </body>
-        </div>
-      </div>
-    </div>
-  </div>
-      </div>
-<script>
-##########################################################################
-### CIAN
-##########################################################################
-</script>
-      <div class="col s4">  <div class="row">
-    <div class="col s12">
-      <div class="card ">
-        <div class="card-content">
-          <span class="card-title">ЦИАН</span>
- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- column -->
+                    <!-- column -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Яндекс</h4>
+                                <div>
+                                    <div id="oil"></div>
+									           <script src="https://www.google.com/jsapi"></script>
+  <script>
+   google.load("visualization", "1", {packages:["corechart"]});
+   google.setOnLoadCallback(drawChart);
+   function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+     ['Даты', ''],
+     ['{{ y|safe }}', {{ tc|safe }}],
+     ['{{ y2|safe }}', {{ tc2|safe }}],
+     ['{{ y3|safe }}', {{ tc3|safe }}],
+     ['{{ y4|safe }}', {{ tc4|safe }}],
+    ]);
+    var options = {
+     title: 'Посещения за сегодня: {{ tc|safe }}' ,
+     hAxis: {title: 'Даты'},
+     vAxis: {title: 'посетителей'},
+	 fontName: 'Open Sans',
+	 colors: ['#5ac146']
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('oil'));
+    chart.draw(data, options);
+   }
+  </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- column -->
+</div>					
+<div class="row">
+                    <!-- column -->
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">ЦИАН</h4>
+                                <div>
+								<div id="piechart"></div>
+								    <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
@@ -121,30 +109,18 @@
         chart.draw(data, options);
       }
     </script>
-  </head>
-  <body>
-    <div id="piechart" style="width: 100%; height: 200px;"></div>
-  </body>
-        </div>
-      </div>
-    </div>
-  </div>
-      </div>
-<script>
-##########################################################################
-### All Pribil
-##########################################################################
-</script>
- <div class="col s12">
-         <div class="row">
-      <div class="col s8">
- <div class="col s12">  <div class="row">
-    <div class="col s12">
-      <div class="card ">
-        <div class="card-content">
-          <span class="card-title"></span>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- column -->
+					<div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Прибыль за полгода</h4>
+                                <div>
+								<div id="chart_div"></div>
+								   <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawVisualization);
 
@@ -165,36 +141,26 @@
       vAxis: {title: 'Сумма'},
       hAxis: {title: 'Дата'},
       seriesType: 'bars',
-      series: {5: {type: 'line'}}
+      series: {5: {type: 'line'}},
+     fontName: 'Open Sans',
+	 colors: ['#26c6da']
     };
 
     var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
     chart.draw(data, options);
   }
     </script>
-
-    <div id="chart_div" style="width: 100%; height: 200px;"></div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
-</div>
-
-<script>
-##########################################################################
-### Moth Pribil
-##########################################################################
-</script>
-<div class="col s4">
-         <div class="row">
-      <div class="col s12">
- <div class="col s12">  <div class="row">
-    <div class="col s12">
-      <div class="card ">
-        <div class="card-content">
-      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+					   </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- column -->
+										<div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Прибыль за месяц</h4>
+                                <div>
+								<div id="piechart_3d"></div>
     <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
@@ -208,49 +174,38 @@
         var options = {
           title: 'Прибыль компании в текущем месяце:',
           is3D: true,
+		  	 fontName: 'Open Sans',
+	 colors: ['#5ac146', '#f62d51']
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
         chart.draw(data, options);
       }
     </script>
-  </head>
-  <body>
-    <div id="piechart_3d" style="width: 100%; height: 200px;"></div>
-  </body>
-  </head>
+					   </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- column -->
+</div>								
+                 <!-- row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title m-b-40">Статистика</h4>
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item"> <a class="nav-link active" id="test1-tab" data-toggle="tab" href="#test1" role="tab" aria-controls="test1" aria-expanded="true"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down">Рейтинг по отделам</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" id="test2-tab" data-toggle="tab" href="#test2" role="tab" aria-controls="test2"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Сочи</span></a></li>
+                                    <li class="nav-item"> <a class="nav-link" id="test3-tab" data-toggle="tab" href="#test3" role="tab" aria-controls="test3"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Адлер</span></a></li>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
-
-</div>
-
-
-    </div>
- </div>
-   <div class="row">
-    <div class="col s12 ">
-      <div class="card ">
-        <div class="card-content ">
-  <div class="row">
-    <div class="col s12">
-      <ul class="tabs">
-        <li class="tab col s4"><a  class="active" href="#test1">Рейтинг по отделам</a></li>
-        <li class="tab col s4"><a  href="#test2">Сочи</a></li>
-        <li class="tab col s4 "><a href="#test3">Адлер</a></li>
-      </ul>
-    </div>
-<script>
-##########################################################################
-### Reiting po otdelam
-##########################################################################
-</script>
-    <div id="test1" class="col s12">
-      <table>
-        <thead>
+                                </ul>
+                                <div class="tab-content tabcontent-border p-20" id="myTabContent">
+                                    <div role="tabpanel" class="tab-pane fade show active" id="test1" aria-labelledby="test1-tab">
+                                        <div class="p-20""><p></p></div>
+										<div class="table-responsive">
+        <table class="table">
+                                        <thead class="bg-success text-white">
           <tr>
               <th>Отдел</th>
               <th>Коммисия</th>
@@ -264,17 +219,14 @@
           </tr>
         {% endfor %}
         </tbody>
-      </table>
-    </div>
-<script>
-##########################################################################
-### Reiting po SOchi
-##########################################################################
-</script>
-    <div id="test2" class="col s12">
-      <table>
-        <thead>
-          <tr>
+      </table></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="test2" role="tabpanel" aria-labelledby="test2-tab">
+                                        <div class="p-20""><p></p></div>
+										<div class="table-responsive">
+        <table class="table">
+                                        <thead class="bg-info text-white">
+<tr>
               <th>ФИО</th>
               <th>Сделок</th>
               <th>Коммисия</th>
@@ -293,18 +245,12 @@
             <td>{{ sOtd.cian_count }}</td>
           </tr>
         {% endfor %}
-        </tbody>
-      </table>
-    </div>
-
-<script>
-##########################################################################
-### Reiting Adler
-##########################################################################
-</script>
-    <div id="test3" class="col s12">
-<table>
-        <thead>
+        </tbody></table></div>                                    </div>
+                                    <div class="tab-pane fade" id="test3" role="tabpanel" aria-labelledby="test3-tab">
+                                        <div class="p-20""><p></p></div>
+										<div class="table-responsive">
+        <table class="table">
+                                        <thead class="bg-primary text-white">
           <tr>
               <th>ФИО</th>
               <th>Сделок</th>
@@ -325,16 +271,16 @@
           </tr>
         {% endfor %}
         </tbody>
-      </table>
-    </div>
-  </div>
-        </div>
-      </div>
-    </div>
-  </div>
+      </table></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row -->
+ 			
 
-    <div class="col s12"></div>
-    </div>
 {% endif %}
 
 {% endblock %}

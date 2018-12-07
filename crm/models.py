@@ -1,4 +1,5 @@
-from datetime import timezone
+from datetime import timezone, datetime
+#import datetime
 from django_resized import ResizedImageField
 
 #from autoslug import AutoSlugField
@@ -28,7 +29,7 @@ class UserProfile1(models.Model):
     ya_choises = (('Да','Да'),('Нет','Нет'))
     ya =models.CharField('Yandex недвижимость',default='Нет', max_length=3, choices=ya_choises)
     nach_otd = models.CharField('Начальник отдела', default='Нет', max_length=3, choices=ya_choises)
-    joomla_usr_id = models.CharField(verbose_name='ID пользователя в Joomla', max_length=10, default='')
+    #joomla_usr_id = models.CharField(verbose_name='ID пользователя в Joomla', max_length=10, default='')
     search_minp = models.IntegerField(default=0, verbose_name='Мин.площадь')
     search_maxp = models.IntegerField(default=5000, verbose_name='Макс.площадь')
     search_minc = models.IntegerField(default=0, verbose_name='Мин.цена')
@@ -65,6 +66,7 @@ class flat_obj(models.Model):
     ##################################################################################################
     #       Start of For All
     ##################################################################################################
+    new_pk = models.CharField(max_length=55, verbose_name='New Pk for DomClick', blank=True)
     nazv = models.CharField(max_length=250, default='', verbose_name='Название обьекта', blank=True)
     allias = models.CharField(max_length=250, default='', verbose_name='Алиас')
     client_name=models.CharField('Имя собственника',max_length=50)
@@ -179,7 +181,10 @@ class flat_obj(models.Model):
     domclick_choises = (('Да','Да'),('Нет','Нет'))
     appart_pr = models.CharField(verbose_name='Пр.апартаментов', choices=domclick_choises,default='Нет', max_length=3)
     domclick = models.CharField(max_length=3,verbose_name='Yandex', default='Нет',choices=domclick_choises)
-    domclick_pub = models.CharField(max_length=3, verbose_name='Опубликовать на Домклик', default='Да',choices=domclick_choises)
+    domclick_pub = models.CharField(max_length=3, verbose_name='Опубликовать на Домклик', default='Да'
+                                    ,choices=domclick_choises)
+    recl_rizn = models.CharField(max_length=3, verbose_name='Признак рекламного обьявления(Yandex)',
+                                 choices=domclick_choises, default='Нет')
     ##################################################################################################
     #       End of Flats
     ##################################################################################################
@@ -248,7 +253,8 @@ class flat_obj(models.Model):
 class flat_obj_gal(models.Model):
     id_gal = models.ForeignKey(flat_obj, related_name='idd_gal', verbose_name='Название', on_delete=models.CASCADE)
     date = models.DateField(auto_now=True, verbose_name='Дата создания')
-    npict = ResizedImageField(verbose_name='Фото объекта', upload_to='image/%Y/%m/%d/real', quality=35 )
+    #npict = ResizedImageField(verbose_name='Фото объекта', upload_to='image/%Y/%m/%d/real', quality=35 )
+    npict = models.ImageField(verbose_name='Фото объекта', upload_to='image/%Y/%m/%d/real')
     class Meta:
         verbose_name = 'Все обьекты галерея'
         verbose_name_plural = 'Все обьекты галерея'
@@ -349,12 +355,20 @@ class uchastok(models.Model):
 class otchet_nov(models.Model):
     #date_sozd = models.DateField(verbose_name='Дата сделки:', auto_now=True)
     date_sozd = models.DateField(verbose_name='Дата создания сделки:')
-    date_zakr = models.DateField(verbose_name='Дата закрытия сделки:')
+    date_zakr = models.DateField(verbose_name='Дата закрытия сделки:')#, default= datetime.datetime.today().date())
     nazv_nov = models.CharField(max_length=140, verbose_name='Название объекта:')
-    fio_kl = models.CharField(max_length=50, verbose_name='ФИО клиента:')
-    tel_kl = PhoneNumberField(verbose_name='тел.Клиента:', help_text='(+79881234567)')
 
-    ot_kuda_choises = (('Другое' , 'Другое'),('Avito','Avito'),('Vestum','Vestum'),('Cian','Cian'),('Сайт компании','Сайт компании'),#('Avito Turbo','Avito Turbo'),
+    fio_kl = models.CharField(max_length=50, verbose_name='ФИО клиента(Покупатель):')
+    tel_kl = PhoneNumberField(verbose_name='тел.Клиента(Покупатель):', help_text='(+79881234567)')
+    fio_pr = models.CharField(max_length=50, verbose_name='ФИО клиента(Продавца):', blank=False, default='')
+    tel_pr = PhoneNumberField(verbose_name='тел.Клиента(Продавца):',blank=False, default='')
+    tel_posr = PhoneNumberField(verbose_name='Тел.посредника', help_text='(+79881234567), если есть',blank=True, default='')
+    name_posr = models.CharField(max_length=50, verbose_name='ФИО Посрединка(ч.риелт или др аг.):',
+                                 help_text=' если есть',blank=True, default='')
+    name_agency = models.CharField(max_length=50, verbose_name='Название агенства:',
+                                   help_text='если есть',blank=True,  default='')
+
+    ot_kuda_choises = (('Другое' , 'Другое'),('Avito','Avito'),('Юла','Юла'),('Сайт компании','Сайт компании'),#('Avito Turbo','Avito Turbo'),('Vestum','Vestum'),('Cian','Cian'),
                        ('По рекомендации','По рекомендации'),('Домклик(Сбер)','Домклик(Сбер)'),('Yandex Недвижимость','Yandex Недвижимость'))
     ot_kuda_kl = models.CharField(max_length=20, verbose_name='Канал привлечения клиента:', choices=ot_kuda_choises)
 
@@ -362,8 +376,10 @@ class otchet_nov(models.Model):
     rielt_proc = models.IntegerField(verbose_name='Проценты риелтора-инициатора сделки:',default=100, validators=[MaxValueValidator(100)], blank=True)
 
     ploshad = models.DecimalField(verbose_name='Площадь:', decimal_places=2, max_digits=4,validators=[MinValueValidator(5)], help_text='min 5')
-    stoimost = models.IntegerField(verbose_name='Стоимость объекта:', validators=[MinValueValidator(300000)], help_text='min 300 000')
-    komisia =  models.IntegerField(verbose_name='Комисия:', validators=[MinValueValidator(1000)], help_text='min 1 000')
+    stoimost = models.IntegerField(verbose_name='Стоимость объекта:', validators=[MinValueValidator(300000)],
+                                   help_text='min 300 000', default=0)
+    komisia =  models.IntegerField(verbose_name='Комисия:', validators=[MinValueValidator(1000)], help_text='min 1 000',
+                                   default=0)
     vneseno_komisii = models.IntegerField(verbose_name='Внесенно комисии 1:', default = '0')
     vneseno_komisii_date = models.DateField(verbose_name='Дата внесения комисии 1:', blank=True, null=True)
     vneseno_komisii2 = models.IntegerField(verbose_name='Внесенно комисии 2:', default = 0)
@@ -381,7 +397,8 @@ class otchet_nov(models.Model):
     prim = models.CharField(max_length=1050, verbose_name='Примечание', default=' ', blank=True)
 
     o_choises = (('',''),('1 Отдел','1 Отдел'),('2 Отдел','2 Отдел'),('3 Отдел','3 Отдел'),('4 Отдел','4 Отдел'),('5 Отдел','5 Отдел'),('6 Отдел','6 Отдел'),('Офис в Адлере','Офис в Адлере'))
-    a_choises = [(c.username, c.last_name+ ' '+c.first_name ) for c in User.objects.all().order_by('last_name')]
+
+    a_choises = [(c.username, c.last_name+ ' '+c.first_name ) for c in User.objects.filter(is_active=True).order_by('last_name')]
 
     reelt1 = models.CharField(max_length=100, choices=a_choises, default=' ', verbose_name='Риелтор в сделке №1',blank=True, help_text='Обязательно к заполнению!')
     otd_reelt1 = models.CharField(max_length=25, verbose_name='Отдел:',default='')#,choices=o_choises,default='')
@@ -427,7 +444,7 @@ class otchet_nov(models.Model):
     adler_pr = models.CharField(max_length=15,verbose_name='Адлер', blank=True)
     old_date_choises = (('Да', 'Да'), ('Нет', 'Нет'))
     old_date = models.CharField(max_length=3, verbose_name='Сделка проводится задним числом?',default='Нет', choices=old_date_choises)
-    sdelka_zakrita_choises = (('Да','Да'),('Нет','Нет'),('Срыв','Срыв'),('Рассрочка','Рассрочка'))
+    sdelka_zakrita_choises = (('Да','Да'),('Да-Рассрочка','Да-Рассрочка'),('Нет','Нет'),('Срыв','Срыв'),('Рассрочка','Рассрочка'))
     sdelka_zakrita = models.CharField(max_length=13, choices=sdelka_zakrita_choises, default='Да', verbose_name='Сделка закрыта')
     pr_prosmotra_golovin = models.CharField(max_length=3, verbose_name='Признак просмотра Головиным', default='', blank=True)
     class Meta:
@@ -475,7 +492,7 @@ class feed(models.Model):
     pub = models.CharField(verbose_name='Публикация:', choices = pub_choises, default = 'Да',max_length=3)
     class Meta:
         verbose_name='Выгрузка (ЦИАН)'
-        verbose_name_plural = 'Выгрузки (ЦИАН)'
+        verbose_name_plural = 'Выгрузки (ЦИАН) '
     def __str__(self):
         return self.nazv
 
@@ -486,7 +503,7 @@ class feed_gallery(models.Model):
     #pict = models.ImageField(verbose_name='Картинка', upload_to='image/%Y/%m/%d')
     npict = ResizedImageField(verbose_name='Фото объекта', upload_to='image/%Y/%m/%d/cian', quality=15)
     class Meta:
-        verbose_name = 'Выгрузки галерея  (ЦИАН)'
+        verbose_name = 'Выгрузки галерея (ЦИАН)'
         verbose_name_plural = 'Выгрузки галерея (ЦИАН)'
 #    def delete(self, *args, **kwargs):
 #        # Note this is a simple example. it only handles delete(),

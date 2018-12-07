@@ -27,9 +27,9 @@ class newsform(forms.ModelForm):
 class flatform(forms.ModelForm):
     class Meta:
         model=flat_obj
-        fields=('client_name','client_tel','adress','raion','dom_numb','kvart_numb','etap_sdachi','status_gilya','klass_gilya',
-                'remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','cena_sobstv','cena_agenstv',
-                'security','rubbish_chute','lift','balcony', 'prim',)
+        fields=('exclusiv','client_name','client_tel','adress','raion','dom_numb','kvart_numb','etap_sdachi','status_gilya','klass_gilya',
+                'remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','kadastr','cena_sobstv','cena_agenstv',
+                'security','rubbish_chute','lift','balcony', 'prim')#,'domclick_pub')
         #fields=('client_name','client_tel','status_obj','adress','raion','etap_sdachi','status_gilya','klass_gilya','remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','kadastr','cena_sobstv','cena_agenstv','prim')
     def clean(self):
         cleaned_data = super(flatform, self).clean()
@@ -37,8 +37,8 @@ class flatform(forms.ModelForm):
                 raise ValidationError('Этаж или Этажность равны 0!' , code='invalid')
         if int(cleaned_data['etag'])>int(cleaned_data['etagnost']):
                 raise ValidationError('Этаж больше этажности' , code='invalid')
-        if str(cleaned_data['kvart_numb'])=='':
-                raise ValidationError('введите №кв' , code='invalid')
+        if str(cleaned_data['kvart_numb'])=='' and str(cleaned_data['kadastr'])=='':
+                raise ValidationError('введите №кв или кадастр' , code='invalid')
         if len(str(cleaned_data['prim'])) < 300:
                 raise ValidationError('меньше 300 символов в описании' , code='invalid')
         if  str(cleaned_data['raion'])=='Выбор района':
@@ -48,9 +48,9 @@ class flatform(forms.ModelForm):
 class flatform_appart(forms.ModelForm):
     class Meta:
         model=flat_obj
-        fields=('client_name','client_tel','adress','raion','dom_numb','kvart_numb','etap_sdachi','klass_gilya',
-                'remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','cena_sobstv','cena_agenstv',
-                'security','rubbish_chute','lift','balcony', 'prim',)
+        fields=('exclusiv','client_name','client_tel','adress','raion','dom_numb','kvart_numb','etap_sdachi','klass_gilya',
+                'remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','kadastr','cena_sobstv','cena_agenstv',
+                'security','rubbish_chute','lift','balcony', 'prim')#,'domclick_pub')
         #fields=('client_name','client_tel','status_obj','adress','raion','etap_sdachi','status_gilya','klass_gilya','remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','kadastr','cena_sobstv','cena_agenstv','prim')
     def clean(self):
         cleaned_data = super(flatform_appart, self).clean()
@@ -58,8 +58,8 @@ class flatform_appart(forms.ModelForm):
                 raise ValidationError('Этаж или Этажность равны 0!' , code='invalid')
         if int(cleaned_data['etag'])>int(cleaned_data['etagnost']):
                 raise ValidationError('Этаж больше этажности' , code='invalid')
-        if str(cleaned_data['kvart_numb'])=='' :
-                raise ValidationError('введите №кв' , code='invalid')
+        if str(cleaned_data['kvart_numb'])=='' and str(cleaned_data['kadastr'])=='':
+                raise ValidationError('введите №кв или кадастр' , code='invalid')
         if len(str(cleaned_data['prim'])) < 300:
                 raise ValidationError('меньше 300 символов в описании' , code='invalid')
         if  str(cleaned_data['raion'])=='Выбор района':
@@ -88,10 +88,10 @@ class kadastr_form(forms.ModelForm):
 class yandex_flatform(forms.ModelForm):
     class Meta:
         model=flat_obj#'kredit',
-        fields=('client_name','client_tel','adress','dom_numb','kvart_numb','raion',
+        fields=('exclusiv','client_name','client_tel','adress','dom_numb','kvart_numb','raion',
                 'etap_sdachi','status_gilya','klass_gilya','remont','gaz','komnat','ploshad','etag',
-                'etagnost','vid_is_okon','san_usel','parking','cena_sobstv','cena_agenstv','prim',
-                'security','rubbish_chute','lift','balcony',)
+                'etagnost','vid_is_okon','san_usel','parking','kadastr','cena_sobstv','cena_agenstv','prim',
+                'security','rubbish_chute','lift','balcony')#,'domclick_pub')
         #fields=('client_name','client_tel','domclick','status_obj','adress','raion','etap_sdachi','status_gilya','klass_gilya','remont','gaz','komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','kadastr','cena_sobstv','cena_agenstv','prim')
     def clean(self):
         cleaned_data = super(yandex_flatform, self).clean()
@@ -99,8 +99,8 @@ class yandex_flatform(forms.ModelForm):
                 raise ValidationError('Этаж или Этажность равны 0!' , code='invalid')
         if int(cleaned_data['etag'])>int(cleaned_data['etagnost']):
                 raise ValidationError('Этаж больше этажности' , code='invalid')
-        if str(cleaned_data['kvart_numb']) == '' :
-                raise ValidationError('введите №кв' , code='invalid')
+        if str(cleaned_data['kvart_numb']) == '' and str(cleaned_data['kadastr']) == '':
+                raise ValidationError('введите №кв или кадастр' , code='invalid')
         if len(str(cleaned_data['prim'])) == 0:
                 raise ValidationError('Введите текст описания' , code='invalid')
         if len(str(cleaned_data['prim'])) < 300:
@@ -116,16 +116,16 @@ class flateditform(forms.ModelForm):
     class Meta:
         model=flat_obj#'kredit',
         fields=('adress','dom_numb','kvart_numb','etap_sdachi','status_gilya','klass_gilya','remont',
-                'komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking',
-                'cena_sobstv','cena_agenstv','prim','security','rubbish_chute','lift','balcony',)
+                'komnat','ploshad','etag','etagnost','vid_is_okon','san_usel','parking','kadastr',
+                'cena_sobstv','cena_agenstv','prim','security','rubbish_chute','lift','balcony')#,'domclick_pub')
     def clean(self):
         cleaned_data = super(flateditform, self).clean()
         if str(cleaned_data['etag']) == '0' or str(cleaned_data['etagnost']) == '0':
                 raise ValidationError('Этаж или Этажность равны 0!' , code='invalid')
         if int(cleaned_data['etag'])>int(cleaned_data['etagnost']):
                 raise ValidationError('Этаж больше этажности' , code='invalid')
-        if str(cleaned_data['kvart_numb']) == '' :
-                raise ValidationError('введите №кв' , code='invalid')
+        if str(cleaned_data['kvart_numb']) == '' and str(cleaned_data['kadastr']) == '':
+                raise ValidationError('введите №кв или кадастр' , code='invalid')
         if len(str(cleaned_data['prim'])) == 0:
                 raise ValidationError('Введите текст описания' , code='invalid')
         if len(str(cleaned_data['prim'])) < 300:
@@ -149,16 +149,16 @@ class yandex_flateditform(forms.ModelForm):
         model=flat_obj#'kredit',
         fields=('adress','dom_numb','domclick','adress','dom_numb','kvart_numb','kvart_numb',
                 'etap_sdachi','status_gilya','klass_gilya','remont','gaz','komnat','ploshad','etag',
-                'etagnost','vid_is_okon','san_usel','parking','cena_sobstv','cena_agenstv','prim',
-                'security','rubbish_chute','lift','balcony',)
+                'etagnost','vid_is_okon','san_usel','parking','kadastr','cena_sobstv','cena_agenstv','prim',
+                'security','rubbish_chute','lift','balcony')#,'domclick_pub')
     def clean(self):
         cleaned_data = super(yandex_flateditform, self).clean()
         if str(cleaned_data['etag']) == '0' or str(cleaned_data['etagnost']) == '0':
                 raise ValidationError('Этаж или Этажность равны 0!' , code='invalid')
         if int(cleaned_data['etag'])>int(cleaned_data['etagnost']):
                 raise ValidationError('Этаж больше этажности' , code='invalid')
-        if str(cleaned_data['kvart_numb']) == '' :
-                raise ValidationError('введите №кв' , code='invalid')
+        if str(cleaned_data['kvart_numb']) == '' and str(cleaned_data['kadastr']) == '':
+                raise ValidationError('введите №кв или кадастр' , code='invalid')
         if len(str(cleaned_data['prim'])) < 300:
                 raise ValidationError('меньше 300 символов в описании' , code='invalid')
         if str(cleaned_data['dom_numb']) == '':
@@ -226,7 +226,7 @@ class client_edit_form(forms.ModelForm):
 class doma_new_post(forms.ModelForm):
     class Meta:
         model=flat_obj
-        fields=('client_name','client_tel','raion','adress','dom_numb','ploshad','cena_sobstv',
+        fields=('client_name','client_tel','raion','adress','dom_numb','kadastr','ploshad','cena_sobstv',
                     'cena_agenstv','prim','h_vid_prava','h_vid_is_okon','h_isp_uch','h_infr','h_etagnost','h_komnat',
                     'h_tip_doma','h_ploshad_uch','h_rast_more',)
 
@@ -242,7 +242,7 @@ class doma_new_post(forms.ModelForm):
 class doma_edit_form(forms.ModelForm):
      class Meta:
         model = flat_obj
-        fields = ('nazv','raion','adress','dom_numb','ploshad','cena_sobstv',
+        fields = ('nazv','raion','adress','dom_numb','kadastr','ploshad','cena_sobstv',
                     'cena_agenstv','prim','h_vid_prava','h_vid_is_okon','h_isp_uch','h_infr','h_etagnost','h_komnat',
                     'h_tip_doma','h_ploshad_uch','h_rast_more',)
      def clean(self):
@@ -299,7 +299,8 @@ class uc_edit_form(forms.ModelForm):
 class otchet_all_form(forms.ModelForm):
     class Meta:
         model = otchet_nov
-        fields = ('nazv_nov','fio_kl','tel_kl','ot_kuda_kl','date_zakr','ploshad','stoimost','komisia','ipoteka',
+        fields = ('nazv_nov','fio_kl','tel_kl','fio_pr','tel_pr','tel_posr','name_posr','name_agency',
+                  'ot_kuda_kl','date_zakr','ploshad','stoimost','komisia','ipoteka',
                   'rasrochka','prim', 'reelt1', 'rielt_proc1', 'reelt2', 'rielt_proc2',
                   'reelt3', 'rielt_proc3', 'reelt4', 'rielt_proc4', 'reelt5', 'rielt_proc5',
                   'reelt6', 'rielt_proc6', 'reelt7', 'rielt_proc7',
@@ -308,12 +309,17 @@ class otchet_all_form(forms.ModelForm):
     def clean(self):
         cleaned_data = super(otchet_all_form, self).clean()
         proc = int(cleaned_data['rielt_proc1'])+int(cleaned_data['rielt_proc2'])+int(cleaned_data['rielt_proc3'])+int(cleaned_data['rielt_proc4'])\
-                +int(cleaned_data['rielt_proc5'])+int(cleaned_data['rielt_proc6'])+int(cleaned_data['rielt_proc7'])+int(cleaned_data['rielt_proc8'])+int(cleaned_data['rielt_proc9'])+int(cleaned_data['rielt_proc10'])
+                +int(cleaned_data['rielt_proc5'])+int(cleaned_data['rielt_proc6'])+int(cleaned_data['rielt_proc7'])\
+               +int(cleaned_data['rielt_proc8'])+int(cleaned_data['rielt_proc9'])+int(cleaned_data['rielt_proc10'])
+
+        if int(cleaned_data['stoimost'])==0:
+            raise ValidationError('Введите стоимость', code='invalid')
+        if int(cleaned_data['komisia'])==0:
+            raise ValidationError('Введите коммисию', code='invalid')
         if int(proc) != 100:
            raise ValidationError('Общая сумма процентов <> 100% и составляет= '+str(proc)+'%', code='invalid')
         if int(cleaned_data['stoimost'])<=int(cleaned_data['komisia']):
                 raise ValidationError('Коммисия больше или равна стоимости квартиры' , code='invalid')
-        #if cleaned_data['old_date']=='Нет':
 
         if not timezone.now().date() <= cleaned_data['date_zakr']:
            raise ValidationError('Дата закрытия меньше даты создания сделки', code='invalid')
@@ -330,6 +336,9 @@ class otchet_all_form1(forms.ModelForm):#edit for administraciya
                   'reelt3', 'rielt_proc3', 'reelt4', 'rielt_proc4', 'reelt5', 'rielt_proc5', 'reelt6',
                   'rielt_proc6', 'reelt7', 'rielt_proc7',
                   'reelt8', 'rielt_proc8', 'reelt9', 'rielt_proc9', 'reelt10', 'rielt_proc10',)
+
+
+
 
 
 
@@ -492,7 +501,7 @@ class adm_form(forms.Form):
     )
 
 class vestum_count_form(forms.Form):
-    vs_count = forms.IntegerField(label='Балы для всех в Avito:')
+    vs_count = forms.IntegerField(label='Балы для всех в Вестуме:')
 
 
 class vestum_poryadok_form(forms.ModelForm):
