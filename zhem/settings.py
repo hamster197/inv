@@ -25,7 +25,7 @@ SECRET_KEY = '_fcw2t6u_sv@bn^!jxpp3sb_bb3g&+3*gpsp0bun&ij9=d)v=s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['77.222.63.160']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -34,7 +34,8 @@ INSTALLED_APPS = [
     #'jet',
     'material.theme.blue',
     'material',
-    'material.admin',
+    #'material.admin',
+    'djangocms_admin_style',
     'material.frontend',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -137,7 +138,7 @@ DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 #STATIC_PATH = os.path.join(BASE_DIR, 'static')
 #STATIC_URL = '/static/'
 
-MEDIA_ROOT = '/var/www/crm/crm/'
+MEDIA_ROOT = '/home/homka/PycharmProjects/zheminv11/'
 MEDIA_URL = '/'
 
 EMAIL_HOST = 'smtp.mail.ru'
@@ -149,9 +150,9 @@ SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 #STATIC_PATH = os.path.join(BASE_DIR, 'static')
-STATIC_ROOT = '/var/www/crm/crm/static/stat/'
+#STATIC_ROOT = '/home/homka/PycharmProjects/zheminv11/static/stat/'
 STATIC_URL = '/static/stat/'
-
+#STATIC_URL = '/static/'
 #STATICFILES_DIRS = (
 #	'/var/www/crm/crm/static/stat/',
 #)
